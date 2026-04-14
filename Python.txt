@@ -1,0 +1,51 @@
+import random
+import time
+
+# Data
+name = ["Ali", "Mustafa"]
+year = ["1990"]
+football = ["Messi"]
+car = ["Nissan"]
+cat = ["Siri"]
+son = ["Ahmed"]
+chars = ["@", "#", "_", "!", "$"]
+
+passwords = set()
+start_time = time.time()
+
+# Generation Loop
+while len(passwords) < 100000:
+    n = random.choice(name)
+    y = random.choice(year)
+    f = random.choice(football)
+    c = random.choice(car)
+    s = random.choice(son)
+    ct = random.choice(cat)
+    sym = random.choice(chars)
+    num = str(random.randint(0, 9999))
+
+    # 5 Patterns
+    p1 = n + y
+    p2 = f + sym + y
+    p3 = c + "_" + s
+    p4 = ct + num + "!"
+    p5 = n.lower() + sym + num
+    
+    selected = random.choice([p1, p2, p3, p4, p5])
+    
+    if random.randint(1, 2) == 1:
+        selected = selected.upper()
+    
+    passwords.add(selected)
+
+# Save to file
+with open("passwords.txt", "w") as f:
+    for p in passwords:
+        f.write(p + "\n")
+
+end_time = time.time()
+
+# Output
+print("Successfully generated 100000 passwords!")
+print(" Saved to: passwords.txt")
+print(" Time elapsed:", round(end_time - start_time, 2), "seconds")
